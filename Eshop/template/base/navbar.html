@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EShop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav my-2 my-lg-2">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+
+        {% if request.session.customer %}
+        <li class="nav-item">
+          <a class="nav-link " href="/cart">Cart</a>
+        </li>
+        {% if request.session.cart.keys|length == 0 %}
+        <li style="color:blue"></li>
+        {% else %}
+        <li style="color:blue">{{request.session.cart.keys|length}}</li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link " href="/orders">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item my-2 my-lg-0">
+          <a class="nav-link" href="/signup/">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login/">Login</a>
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+     <form class="d-flex float-end" role="search" method="post" action="/search/">
+            {% csrf_token %}
+            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+  </div>
+</nav>
